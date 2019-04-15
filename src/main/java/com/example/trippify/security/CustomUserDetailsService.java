@@ -2,8 +2,8 @@ package com.example.trippify.security;
 
 
 import com.example.trippify.exception.ResourceNotFoundException;
-import com.example.trippify.model.User;
-import com.example.trippify.repository.UserRepository;
+import com.example.trippify.api.User.model.User;
+import com.example.trippify.api.User.service.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

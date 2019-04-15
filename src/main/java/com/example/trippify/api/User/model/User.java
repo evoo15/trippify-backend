@@ -1,9 +1,18 @@
-package com.example.trippify.model;
+package com.example.trippify.api.User.model;
+
+import com.example.trippify.api.Trip.model.Trip;
+import com.example.trippify.model.AuthProvider;
+import com.example.trippify.security.UserPrincipal;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "users", uniqueConstraints = {
@@ -20,6 +29,11 @@ public class User {
     @Email
     @Column(nullable = false)
     private String email;
+
+
+    @JsonBackReference
+    @OneToMany
+    private List<Trip> trips;
 
     private String imageUrl;
 
@@ -97,5 +111,14 @@ public class User {
 
     public void setProviderId(String providerId) {
         this.providerId = providerId;
+    }
+
+
+    public List<Trip> getTrips() {
+        return trips;
+    }
+
+    public void setTrips(List<Trip> trips) {
+        this.trips = trips;
     }
 }

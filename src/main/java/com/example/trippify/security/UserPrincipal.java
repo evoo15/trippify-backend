@@ -1,6 +1,6 @@
 package com.example.trippify.security;
 
-import com.example.trippify.model.User;
+import com.example.trippify.api.User.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

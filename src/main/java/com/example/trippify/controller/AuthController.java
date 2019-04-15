@@ -2,12 +2,12 @@ package com.example.trippify.controller;
 
 import com.example.trippify.exception.BadRequestException;
 import com.example.trippify.model.AuthProvider;
-import com.example.trippify.model.User;
+import com.example.trippify.api.User.model.User;
 import com.example.trippify.payload.ApiResponse;
 import com.example.trippify.payload.AuthResponse;
 import com.example.trippify.payload.LoginRequest;
 import com.example.trippify.payload.SignUpRequest;
-import com.example.trippify.repository.UserRepository;
+import com.example.trippify.api.User.service.repository.UserRepository;
 import com.example.trippify.security.TokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -72,7 +72,7 @@ public class AuthController {
         User result = userRepository.save(user);
 
         URI location = ServletUriComponentsBuilder
-                .fromCurrentContextPath().path("/user/me")
+                .fromCurrentContextPath().path("/api/user/me")
                 .buildAndExpand(result.getId()).toUri();
 
         return ResponseEntity.created(location)

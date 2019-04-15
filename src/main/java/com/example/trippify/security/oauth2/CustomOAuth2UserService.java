@@ -2,8 +2,8 @@ package com.example.trippify.security.oauth2;
 
 import com.example.trippify.exception.OAuth2AuthenticationProcessingException;
 import com.example.trippify.model.AuthProvider;
-import com.example.trippify.model.User;
-import com.example.trippify.repository.UserRepository;
+import com.example.trippify.api.User.model.User;
+import com.example.trippify.api.User.service.repository.UserRepository;
 import com.example.trippify.security.UserPrincipal;
 import com.example.trippify.security.oauth2.user.OAuth2UserInfo;
 import com.example.trippify.security.oauth2.user.OAuth2UserInfoFactory;
