@@ -2,11 +2,13 @@ package com.example.trippify.api.Trip.model;
 
 import com.example.trippify.api.User.model.User;
 import com.example.trippify.model.AuthProvider;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
 import java.util.List;
 
@@ -20,12 +22,54 @@ public class Trip {
     @Column(nullable = false)
     private String titre;
 
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date startDate;
 
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date endDate;
+
+    private String imageUrl;
 
     @ManyToOne
     private User traveller;
+
+    public Integer getNbPosts() {
+        return nbPosts;
+    }
+
+    public void setNbPosts(Integer nbPosts) {
+        this.nbPosts = nbPosts;
+    }
+
+    public Integer getNbComments() {
+        return nbComments;
+    }
+
+    public void setNbComments(Integer nbComments) {
+        this.nbComments = nbComments;
+    }
+
+    public Integer getNbViews() {
+        return nbViews;
+    }
+
+    public void setNbViews(Integer nbViews) {
+        this.nbViews = nbViews;
+    }
+
+    public Integer getNbLikes() {
+        return nbLikes;
+    }
+
+    public void setNbLikes(Integer nbLikes) {
+        this.nbLikes = nbLikes;
+    }
+
+    private Integer nbPosts;
+    private Integer nbComments;
+    private Integer nbViews;
+    private Integer nbLikes;
 
 
     public Long getId() {
@@ -58,6 +102,14 @@ public class Trip {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public User getTraveller() {

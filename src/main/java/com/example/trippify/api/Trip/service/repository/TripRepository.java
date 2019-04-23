@@ -1,8 +1,6 @@
-package com.example.trippify.api.Trip.repository;
+package com.example.trippify.api.Trip.service.repository;
 
 import com.example.trippify.api.Trip.model.Trip;
-import com.example.trippify.api.User.model.User;
-import com.example.trippify.security.UserPrincipal;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
