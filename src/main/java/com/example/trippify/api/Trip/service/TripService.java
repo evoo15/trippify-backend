@@ -3,14 +3,11 @@ package com.example.trippify.api.Trip.service;
 
 import com.example.trippify.api.Post.model.Post;
 import com.example.trippify.api.Post.service.PostService;
-import com.example.trippify.api.Post.service.repository.PostRepository;
 import com.example.trippify.api.Trip.model.Trip;
 import com.example.trippify.api.Trip.service.repository.TripRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
-import javax.transaction.Transactional;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +24,7 @@ public class TripService implements ITripService {
 
     @Override
 
-    public Trip save(Trip trip) {
+    public Trip create(Trip trip) {
         if (trip.getEndDate() != null && trip.getStartDate() != null) {
             trip.setDaysNumber(1 + ChronoUnit.DAYS.between(trip.getStartDate().toInstant(), trip.getEndDate().toInstant()));
         }
@@ -46,6 +43,11 @@ public class TripService implements ITripService {
         postService.saveAll(posts);
         trip.setPosts(posts);
 
+        return tripRepository.save(trip);
+    }
+
+    @Override
+    public Trip save(Trip trip) {
         return tripRepository.save(trip);
     }
 

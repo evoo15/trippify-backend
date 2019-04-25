@@ -56,6 +56,14 @@ public class TripResource {
         traveller.setId(user.getId());
         trip.setTraveller(traveller);
 
+        this.tripService.create(trip);
+        return tripService.findByTravellerId(user.getId());
+    }
+
+    @PutMapping("/api/trip")
+    @PreAuthorize("hasRole('USER')")
+    public List<Trip> editTrip(@CurrentUser UserPrincipal user, @RequestBody Trip trip) {
+
         this.tripService.save(trip);
         return tripService.findByTravellerId(user.getId());
     }

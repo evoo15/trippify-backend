@@ -7,6 +7,7 @@ import java.util.Optional;
 
 public interface ITripService {
 
+    Trip create(Trip trip);
     Trip save(Trip trip);
 
     void delete(Trip trip);

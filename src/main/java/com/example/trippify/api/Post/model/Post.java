@@ -3,10 +3,7 @@ package com.example.trippify.api.Post.model;
 
 import com.example.trippify.api.Trip.model.Trip;
 import com.example.trippify.api.User.model.User;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
