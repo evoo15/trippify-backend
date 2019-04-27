@@ -1,6 +1,7 @@
 package com.example.trippify.api.Post.model;
 
 
+import com.example.trippify.api.Comment.model.Comment;
 import com.example.trippify.api.Trip.model.Trip;
 import com.example.trippify.api.User.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -8,6 +9,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "posts")
@@ -29,8 +31,19 @@ public class Post {
 
     private long day;
 
+    @OneToMany(mappedBy = "post")
+    private List<Comment> comments;
+
     public long getDay() {
         return day;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
     public void setDay(long day) {

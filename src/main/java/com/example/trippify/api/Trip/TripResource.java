@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class TripResource {
@@ -46,6 +45,14 @@ public class TripResource {
             tripService.delete(trip);
         else return new ResponseEntity(HttpStatus.FORBIDDEN);
         return new ResponseEntity(trip, HttpStatus.ACCEPTED);
+    }
+
+
+    @GetMapping("/api/trip/{id}")
+    @PreAuthorize("hasRole('USER')")
+    public Trip getTripById(@CurrentUser UserPrincipal user, @PathVariable String id) {
+        Trip trip = tripService.findById(Long.parseLong(id)).orElseThrow(() -> new EntityNotFoundException("trip not found"));
+        return trip;
     }
 
     @PostMapping("/api/trip")

@@ -1,5 +1,7 @@
 package com.example.trippify.api.Post;
 
+import com.example.trippify.api.Comment.model.Comment;
+import com.example.trippify.api.Comment.service.CommentService;
 import com.example.trippify.api.Post.model.Post;
 import com.example.trippify.api.Post.service.PostService;
 import com.example.trippify.api.Trip.model.Trip;
@@ -12,10 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -28,6 +27,9 @@ public class PostResource {
     private PostService postService;
     @Autowired
     private TripService tripService;
+
+    @Autowired
+    private CommentService commentService;
 
     @PutMapping("/api/post")
     @PreAuthorize("hasRole('USER')")
@@ -42,6 +44,18 @@ public class PostResource {
         postRequest.setTrip(trip);
 
         this.postService.save(postRequest);
+        return new ResponseEntity<Authenticator.Success>(HttpStatus.OK);
+
+    }
+
+    @PostMapping("/api/post/comment")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity addComment(@CurrentUser UserPrincipal user, @RequestBody Comment comment, @RequestParam long post_id) {
+
+        Post post = postService.findById(post_id).orElseThrow(() -> new EntityNotFoundException("post not found"));
+        comment.setPost(post);
+
+
         return new ResponseEntity<Authenticator.Success>(HttpStatus.OK);
 
     }
