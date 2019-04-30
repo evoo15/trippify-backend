@@ -1,17 +1,14 @@
 package com.example.trippify.api.Trip.model;
 
-import com.example.trippify.api.Post.model.Post;
 import com.example.trippify.api.User.model.User;
-import com.example.trippify.model.AuthProvider;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.annotations.CreationTimestamp;
+
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
+
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -22,12 +19,26 @@ public class Trip {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @CreationTimestamp
+    private LocalDateTime createdDate;
+
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
+    }
+
     @Column(nullable = false)
     private String titre;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
     private Date startDate;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "trip_id")
+    private List<Trip_day> trip_days;
 
 
     @JsonFormat(pattern = "dd/MM/yyyy")
@@ -35,13 +46,6 @@ public class Trip {
 
     private long daysNumber;
 
-    public List<Post> getPosts() {
-        return posts;
-    }
-
-    public void setPosts(List<Post> posts) {
-        this.posts = posts;
-    }
 
     private String imageUrl;
 
@@ -85,9 +89,13 @@ public class Trip {
     private Integer nbViews;
     private Integer nbLikes;
 
-    @OneToMany(mappedBy = "trip", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @Column(nullable = true)
-    private List<Post> posts;
+    public List<Trip_day> getTrip_days() {
+        return trip_days;
+    }
+
+    public void setTrip_days(List<Trip_day> trip_days) {
+        this.trip_days = trip_days;
+    }
 
 
     public Long getId() {

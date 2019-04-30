@@ -4,12 +4,15 @@ package com.example.trippify.api.Trip.service;
 import com.example.trippify.api.Post.model.Post;
 import com.example.trippify.api.Post.service.PostService;
 import com.example.trippify.api.Trip.model.Trip;
+import com.example.trippify.api.Trip.model.Trip_day;
 import com.example.trippify.api.Trip.service.repository.TripRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,17 +34,25 @@ public class TripService implements ITripService {
         trip.setNbComments(0);
         trip.setNbLikes(0);
         trip.setNbViews(0);
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        c.setTime(trip.getStartDate());
 
-        List<Post> posts = new ArrayList<Post>();
+        List<Trip_day> trip_days = new ArrayList<Trip_day>();
         for (int i = 0; i < trip.getDaysNumber(); i++) {
-            Post post = new Post();
-            post.setTrip(trip);
-            post.setDay(i + 1);
-            posts.add(post);
+            Trip_day trip_day = new Trip_day();
+
+            trip_day.setTrip(trip);
+            trip_day.setDayNumber(i + 1);
+            trip_day.setDate(c.getTime());
+            trip_days.add(trip_day);
+
+            c.add(Calendar.DAY_OF_MONTH, 1);
+
         }
 
-        postService.saveAll(posts);
-        trip.setPosts(posts);
+        // postService.saveAll(posts);
+        trip.setTrip_days(trip_days);
 
         return tripRepository.save(trip);
     }
