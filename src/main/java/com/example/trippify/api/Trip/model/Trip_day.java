@@ -9,6 +9,8 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -64,17 +66,32 @@ public class Trip_day {
     }
 
     public List<Post> getPosts() {
+        if (posts != null) {
+            Collections.sort(posts, new Comparator<Post>() {
+                public int compare(Post p1, Post p2) {
+                    try {
+                        return p1.getTime().isBefore(p2.getTime()) ? -1 : 1;
+                    } catch (Exception e) {
+                        return -1;
+
+                    }
+                }
+            });
+        }
         return posts;
     }
 
     public List<Post> addPost(Post post) {
         posts.add(post);
+
+
         return posts;
     }
 
 
     public void setPosts(List<Post> posts) {
         this.posts = posts;
+
     }
 
     @ManyToOne(fetch = FetchType.LAZY)

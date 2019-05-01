@@ -4,12 +4,15 @@ package com.example.trippify.api.Post.model;
 import com.example.trippify.api.Comment.model.Comment;
 import com.example.trippify.api.Trip.model.Trip_day;
 import com.example.trippify.api.User.model.User;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.apache.tomcat.jni.Local;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.time.LocalTime;
 import java.util.List;
 
 @Entity
@@ -31,6 +34,18 @@ public class Post {
     private Trip_day trip_day;
 
     private long day;
+
+    @JsonFormat(pattern = "hh:mm a")
+
+    private LocalTime time;
+
+    public LocalTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalTime time) {
+        this.time = time;
+    }
 
     @JoinColumn(name = "trip_id")
     private long trip_id;
@@ -81,6 +96,7 @@ public class Post {
     public void setPlace(String place) {
         this.place = place;
     }
+
 
     private String[] imageUrls;
 
