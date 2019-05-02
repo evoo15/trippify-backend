@@ -10,6 +10,8 @@ import com.example.trippify.security.UserPrincipal;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sun.deploy.net.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,10 +26,16 @@ public class TripResource {
     @Autowired
     ITripService tripService;
 
-    @JsonManagedReference
+
     @GetMapping("/api/trip")
     public List<Trip> getAllTrips() {
         return tripService.findAll();
+    }
+
+
+    @GetMapping("/api/trip/paged")
+    public Page<Trip> getAllTripsPaged(Pageable page) {
+        return tripService.findAllPaged(page);
     }
 
     @GetMapping("/api/trip/me")

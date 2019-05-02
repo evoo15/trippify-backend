@@ -14,7 +14,7 @@ spring:
       max-request-size: 215MB
 
   datasource:
-    url: jdbc:mysql://localhost:3306/trippify_db?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/trippify_db?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&max_allowed_packet=10000000
 
     username: root
     password:

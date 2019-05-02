@@ -10,8 +10,12 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.apache.tomcat.jni.Local;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.loader.entity.BatchingEntityLoaderBuilder;
 
 import javax.persistence.*;
+import javax.xml.soap.Text;
+import java.lang.reflect.Array;
+import java.sql.Blob;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -97,8 +101,16 @@ public class Post {
         this.place = place;
     }
 
-
+    @Column(name = "image_urls", columnDefinition = "longblob")
     private String[] imageUrls;
+
+    public String[] getImageUrls() {
+        return imageUrls;
+    }
+
+    public void setImageUrls(String[] imageUrls) {
+        this.imageUrls = imageUrls;
+    }
 
     public Long getId() {
         return id;
@@ -116,6 +128,7 @@ public class Post {
         this.titre = titre;
     }
 
+
     public String getDescription() {
         return description;
     }
@@ -124,13 +137,6 @@ public class Post {
         this.description = description;
     }
 
-    public String[] getImageUrls() {
-        return imageUrls;
-    }
-
-    public void setImageUrls(String[] imageUrls) {
-        this.imageUrls = imageUrls;
-    }
 
     public User getPostMaker() {
         return postMaker;

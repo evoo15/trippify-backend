@@ -7,6 +7,8 @@ import com.example.trippify.api.Trip.model.Trip;
 import com.example.trippify.api.Trip.model.Trip_day;
 import com.example.trippify.api.Trip.service.repository.TripRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -65,6 +67,11 @@ public class TripService implements ITripService {
     @Override
     public void delete(Trip trip) {
         tripRepository.delete(trip);
+    }
+
+    @Override
+    public Page<Trip> findAllPaged(Pageable page) {
+        return tripRepository.findAll(page);
     }
 
     @Override
