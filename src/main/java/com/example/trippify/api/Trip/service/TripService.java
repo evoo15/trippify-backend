@@ -28,6 +28,11 @@ public class TripService implements ITripService {
     PostService postService;
 
     @Override
+    public List<Trip> findTripsByKeyword(String keyword) {
+        return tripRepository.findAllByTitreIgnoreCaseContaining(keyword);
+    }
+
+    @Override
 
     public Trip create(Trip trip) {
         if (trip.getEndDate() != null && trip.getStartDate() != null) {

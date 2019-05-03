@@ -65,12 +65,23 @@ public class PostResource {
         postMaker.setId(user.getId());
         postRequest.setPostMaker(postMaker);
 
-        Trip trip = tripService.findById(post.getTrip_id()).get();
+        // Trip trip = tripService.findById(post.getTrip_id()).get();
         // postRequest.setTrip(trip);
 
         this.postService.save(postRequest);
         return new ResponseEntity<Authenticator.Success>(HttpStatus.OK);
 
+    }
+
+
+    @DeleteMapping("/api/post")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<Post> deletePostById(@CurrentUser UserPrincipal user, @RequestParam String id) {
+        Post post = postService.findById(Long.parseLong(id)).orElseThrow(() -> new EntityNotFoundException("post not found"));
+        if (user.getId().equals(post.getPostMaker().getId()))
+            postService.delete(post);
+        else return new ResponseEntity(HttpStatus.FORBIDDEN);
+        return new ResponseEntity(post, HttpStatus.ACCEPTED);
     }
 
     @PostMapping("/api/post/comment")

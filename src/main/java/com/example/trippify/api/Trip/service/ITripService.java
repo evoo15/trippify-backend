@@ -22,4 +22,6 @@ public interface ITripService {
 
     Optional<Trip> findById(Long id);
 
+    List<Trip> findTripsByKeyword(String keyword);
+
 }

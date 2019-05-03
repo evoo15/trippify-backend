@@ -95,12 +95,14 @@ public class Trip_day {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "trip_id", nullable = false, updatable = false)
+    @JoinColumn(name = "trip_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
+
     private Trip trip;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "trip_day_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Post> posts;
 
 

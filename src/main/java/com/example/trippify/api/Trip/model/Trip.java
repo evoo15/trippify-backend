@@ -4,6 +4,8 @@ import com.example.trippify.api.User.model.User;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 
 import javax.persistence.*;
@@ -38,6 +40,8 @@ public class Trip {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "trip_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+
     private List<Trip_day> trip_days;
 
 

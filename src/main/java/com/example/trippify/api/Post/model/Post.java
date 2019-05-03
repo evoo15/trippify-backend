@@ -51,16 +51,7 @@ public class Post {
         this.time = time;
     }
 
-    @JoinColumn(name = "trip_id")
-    private long trip_id;
 
-    public long getTrip_id() {
-        return trip_id;
-    }
-
-    public void setTrip_id(long trip_id) {
-        this.trip_id = trip_id;
-    }
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<Comment> comments;

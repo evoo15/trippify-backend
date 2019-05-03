@@ -13,5 +13,7 @@ public interface TripRepository extends JpaRepository<Trip, Long> {
 
     List<Trip> findByTravellerId(long userId);
 
+    List<Trip> findAllByTitreIgnoreCaseContaining(String keyword);
+
 
 }

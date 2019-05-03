@@ -32,6 +32,11 @@ public class TripResource {
         return tripService.findAll();
     }
 
+    @GetMapping("/api/trip/search")
+    public List<Trip> getAllTripsSearch(@RequestParam String keyword) {
+        return tripService.findTripsByKeyword(keyword);
+    }
+
 
     @GetMapping("/api/trip/paged")
     public Page<Trip> getAllTripsPaged(Pageable page) {
