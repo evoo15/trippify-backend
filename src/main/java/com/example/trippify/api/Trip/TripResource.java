@@ -3,12 +3,9 @@ package com.example.trippify.api.Trip;
 
 import com.example.trippify.api.Trip.model.Trip;
 import com.example.trippify.api.Trip.service.ITripService;
-import com.example.trippify.api.Trip.service.TripService;
 import com.example.trippify.api.User.model.User;
 import com.example.trippify.security.CurrentUser;
 import com.example.trippify.security.UserPrincipal;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.sun.deploy.net.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

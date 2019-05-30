@@ -14,10 +14,8 @@ spring:
       max-request-size: 215MB
 
   datasource:
-    url: jdbc:mysql://localhost:3306/trippify_db?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&max_allowed_packet=10000000
-
-    username: root
-    password:
+    #url: jdbc:mysql://localhost:3306/trippify_db?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&max_allowed_packet=10000000
+    url: jdbc:sqlserver://trippify.database.windows.net:1433;database=trippify-db;user=evoo15@trippify;password=Azerty123;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;
 
   jpa:
     show-sql: true
@@ -26,7 +24,8 @@ spring:
       naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        #dialect: org.hibernate.dialect.MySQL5Dialect
+        dialect: org.hibernate.dialect.SQLServerDialect
   security:
     oauth2:
       client:
@@ -57,7 +56,13 @@ spring:
             authorizationUri: https://www.facebook.com/v3.0/dialog/oauth
             tokenUri: https://graph.facebook.com/v3.0/oauth/access_token
             userInfoUri: https://graph.facebook.com/v3.0/me?fields=id,first_name,middle_name,last_name,name,email,verified,is_verified,picture.width(250).height(250)
-app:
+jdbc:sqlserver://trippify:
+  database:
+    windows:
+      net:1433;database=trippify-db;user=evoo15@trippify;password={your_password_here};encrypt=true;trustServerCertificate=false;hostNameInCertificate=*:
+        database:
+          windows:
+            net;loginTimeout=30;:app:
   auth:
     tokenSecret: 926D96C90030DD58429D2751AC1BDBBC
     tokenExpirationMsec: 864000000
@@ -67,6 +72,7 @@ app:
     # redirectUri mentioned by the frontend client in the /oauth2/authorize request.
     # We're not using cookies because they won't work well in mobile clients.
     authorizedRedirectUris:
+      - https://trippify.azurewebsites.net/
       - http://localhost:4200/
       - myandroidapp://oauth2/redirect
       - myiosapp://oauth2/redirect
